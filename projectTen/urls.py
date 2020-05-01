@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Login.urls')),
     path('',include('HomeworkPublish.urls',namespace='HomeworkPublish')),
+    path('captcha/', include('captcha.urls')),
     
 ]+ static (projectTen.settings.MEDIA_URL, document_root=projectTen.settings.MEDIA_ROOT)

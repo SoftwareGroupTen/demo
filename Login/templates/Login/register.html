@@ -11,12 +11,6 @@
     <h1>注册</h1>
     <a href=" {% url 'Login:主页' %} ">返回</a>
 
-    {% if 注册表单.errors %}
-        {{ 注册表单.errors }}
-    {% endif %}
-
-       
-    
 
     <form action="" method="POST">
         {% csrf_token %}
@@ -25,6 +19,10 @@
             <input type="text" name="username" maxlength="150" autofocus required id="id_username"> 
             <span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>
         </p>
+        {% if 注册表单.errors.username %}
+            {{注册表单.errors.username}}
+        {% endif %}
+
         <p>
             <label for="id_password1">密码:</label> 
             <input type="password" name="password1" required id="id_password1">
@@ -37,23 +35,36 @@
                 </ul>
             </span>
         </p>
+        {{ 注册表单.errors.password1 }}
+
         <p>
             <label for="id_password2">密码确认:</label> 
             <input type="password" name="password2" required id="id_password2">
             <span class="helptext">为了校验，请输入与上面相同的密码。</span>
         </p>
+        {{ 注册表单.errors.password2 }}
+
         <p>
             <label for="id_email">电子邮件地址:</label> 
             <input type="email" name="email" maxlength="254" id="id_email">
         </p>
+        {{ 注册表单.errors.email }}
+
         <p>
             <label for="id_昵称">昵称:</label> 
             <input type="text" name="昵称" maxlength="50" id="id_昵称">
         </p>
+
         <p>
-            <label for="id_身份">身份:</label> 
-            <input type="text" name="身份" maxlength="2" required id="id_身份">
+            <label for = "identity">身份:</label>
+		    <input type = "radio" name = "身份" value = "学生">学生
+		    <input type = "radio" name = "身份" value = "助教">助教
+		    <input type = "radio" name = "身份" value = "老师">老师
+		 <br>
         </p>
+        {{ 注册表单.验证码 }}
+        
+        {{ 注册表单.errors.验证码 }}
             <button type="submit">注册</button>
     </form>
 

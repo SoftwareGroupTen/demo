@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm, PasswordChangeForm
 from django.http import HttpResponse
 from django.db.models import Q
-from .forms import 自定义注册表单
+from .forms import 自定义注册表单,自定义编辑表单,自定义登录表单
 from .models import 普通会员表
+from django.contrib.auth.decorators import login_required
 from HomeworkPublish.models import Homework
 from upload.models import userfile
 from .models import course
@@ -29,17 +30,20 @@ def 主页(request):
 
 
 
-def 登录(request):
-    if request.method == 'POST':
-        用户 = authenticate(request,username=request.POST['用户名'] ,password=request.POST['密码'] )
-        if 用户 is None:
-            return render(request, 'Login/login.html',{'错误':'该用户名不存在或密码错误!'})
-        else:
-            login(request,用户)
+def 登录(require):
+    if require.method == 'POST':
+        登录表单 = 自定义登录表单(data= require.POST)
+        if 登录表单.is_valid():
+
+            用户 = authenticate(require,username=登录表单.cleaned_data['username'] ,password=登录表单.cleaned_data['password'] )
+
+            login(require,用户)
             return redirect('Login:主页')
-            
     else:
-        return render(request, 'Login/login.html')
+        登录表单 = 自定义登录表单()
+
+    内容 = {'登录表单':登录表单, '用户':require.user}
+    return render(require, 'Login/login.html',内容)
 
 
 def 登出(request):
@@ -66,6 +70,41 @@ def 注册(require):
 
     内容 = {'注册表单':注册表单}
     return render(require, 'Login/register.html', 内容)
+@login_required(login_url='Login:登录')
+def 个人中心(require):
+    内容 = {'用户': require.user}
+    return render(require, 'Login/user-center.html', 内容)
+
+@login_required(login_url='Login:登录')
+def 编辑个人信息(require):
+    if require.method == 'POST':
+        编辑表单 = 自定义编辑表单(require.POST,instance = require.user)
+        if 编辑表单.is_valid():
+            编辑表单.save()
+            require.user.普通会员表.昵称 = 编辑表单.cleaned_data['昵称']
+            require.user.普通会员表.身份 = 编辑表单.cleaned_data['身份']
+            require.user.普通会员表.save()
+            return redirect('Login:个人中心')
+    else:
+        编辑表单 = 自定义编辑表单(instance = require.user)
+
+    内容 = {'编辑表单':编辑表单, '用户':require.user}
+    return render(require, 'Login/edit-profile.html', 内容)
+
+
+
+@login_required(login_url='Login:登录')
+def 修改密码(require):
+    if require.method == 'POST':
+        改密表单 = PasswordChangeForm(data= require.POST,user = require.user)
+        if 改密表单.is_valid():
+            改密表单.save()
+            return redirect('Login:登录')
+    else:
+        改密表单 = PasswordChangeForm(user = require.user)
+
+    内容 = {'改密表单':改密表单, '用户':require.user}
+    return render(require, 'Login/change-password.html', 内容)
 
 
 def upload(request,id):

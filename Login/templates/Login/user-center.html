@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>个人中心</h1>
+
+    <a href = "{% url 'Login:主页' %}">回到主页</a>
+    <a href = "{% url 'Login:编辑个人信息' %}">编辑个人信息</a>
+    <a href = "{% url 'Login:修改密码' %}">修改密码</a>
+    <a href = "{% url 'Login:登出' %}">登出</a>
+    <div>
+        <p>
+            {{ 用户.username }}
+        </p>
+
+        <p>
+            {{ 用户.email }}
+        </p>
+
+        <p>
+            {{ 用户.普通会员表.昵称 }}
+        </p>
+
+        <p>
+            {{ 用户.普通会员表.身份 }}
+        </p>
+    </div>
+
+</body>
+</html>

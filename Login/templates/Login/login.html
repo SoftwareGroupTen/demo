@@ -1,34 +1,46 @@
-{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="zh-hans">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <title>Document</title>
 </head>
-
-<body background="/static/images/bg.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%;
-background-attachment: fixed;">
+<body>
     <h1>登录</h1>
-    
+    <a href = " {% url 'Login:主页' %} ">返回</a>
     <form action = "" method = "POST">
-    {% csrf_token %}
-    {{ ERROR }}
-    <div class="form-group">
-        <label for="usr">用户名:</label> 
-        <input type = "text" name = "用户名" placeholder = "用户名" id = "usr">
-    </div>
+    	{% csrf_token %}
+    	{{ 错误 }}
+		
+		<!---
+    	<input type = "text" name = "username" placeholder = "用户名">
+    	<input type = "password" name = "password" placeholder = "密码">
+		-->
+		
+		<p>
+		 <label for = "username">账号：</label>
+		  <input type = "text" name = "username" placeholder = "用户名">
+		 <br>
+		 <label for ="password">密码：</label>
+		  <input type = "password" name = "password" placeholder = "密码">
+		 
+		 <!--
+		  <br>
+		 <label for = "identity">身份:</label>
+		  <input type = "radio" name = "身份" value = "学生">学生
+		  <input type = "radio" name = "身份" value = "助教">助教
+		  <input type = "radio" name = "身份" value = "老师">老师
+		 <br>
+		 -->
+		 <p>
+		
+		 
 
-    <div class="form-group">
-        <label for="pwd">密码:</label>
-        <input type = "password" name = "密码" placeholder = "密码" id = "pwd">
-    </div>
-    
-    
-    <button type = "submit" class="btn btn-primary " >登录</button>
-</form>
-<a href = " {% url 'Login:主页' %} ">返回</a>
+
+        {{ 登录表单.验证码 }}
+        {{ 登录表单.errors.验证码 }}
+		 <button type = "submit" class = "btn btn-primary">登录</button>
+		
+	</form>
 </body>
 </html>
-

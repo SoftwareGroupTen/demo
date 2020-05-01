@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Login',
     'HomeworkPublish',
     'upload',
+    'captcha',
 ]
 
 MIDDLEWARE = [
