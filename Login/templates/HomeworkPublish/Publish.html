@@ -1,0 +1,20 @@
+<html>
+    <body>
+        <div>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Homework_text">作业内容</label>
+                    <br/>
+                    <textarea type="text" class="form-control" id="Homework_text" name="Homework_text" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="deadline">截止时间</label>
+                    <br/>
+                    <input type="datetime" id="deadline" name="deadline">
+                </div>
+                <button type="submit" class="btn btn-promary">完成</button>
+            </form>
+        </div>
+    </body>
+</html>

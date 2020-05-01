@@ -1,0 +1,62 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+</head>
+
+
+
+
+<body background="/static/images/bg.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%;
+background-attachment: fixed;">
+
+    <h1 class="text-center" style="color:blue">Good Homework Online</h1>
+    {% if user.is_authenticated %}
+        <a href = "{% url 'Login:登出' %}">登出</a>
+        <p>当前用户:{{ user.username }}</p>
+        <p>当前用户身份:{{ request.session.role }}</p>
+        {% if request.session.role == '教师' %}
+            <p><a href ="{% url 'Login:addcourse' %}">添加课程</a></p>
+            <p>我的课程:</p>
+            <ul>
+            {% for course in mycourse %}
+                <li><a  href ="{% url 'Login:coursedetail' course.id %}">{{ course.courseName }}</a>  <a  href ="{% url 'Login:coursedelete' course.id %}">删除此课程</a></li>
+
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% if request.session.role == '学生' %}
+            <p><a  href ="{% url 'Login:joincourse' %}">加入课程</a></p>
+            <p>我的课程:</p>
+            <ul>
+                {% for c in sc %}
+                <li><a  href ="{% url 'Login:coursedetail' c.thecourse.id %}">{{ c.thecourse.courseName }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if request.session.role == '助教' %}
+            <p>我管理的课程:</p>
+            <ul>
+                {% for c in ac %}
+                <li><a  href ="{% url 'Login:coursedetail' c.thecourse.id %}">{{ c.thecourse.courseName }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+    {% else %}
+    <div style="text-align:center;">
+        
+        <a href = "{% url 'Login:登录' %}"  role="button" class="btn btn-outline-primary btn-lg img-circle " class="img-circle" >登录</a>
+        <a href = "{% url 'Login:注册' %}"  role="button" class="btn btn-outline-primary btn-lg" class="img-circle" >注册</a>
+    </div>
+    {% endif %}
+    
+
+
+</body>
+</html>
+

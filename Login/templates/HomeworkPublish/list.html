@@ -1,0 +1,7 @@
+作业列表：
+{% for Homework in homework %}
+    <p>课程编号{{ Homework.courseNum }}</p>
+    <p>
+         作业内容：{{ Homework.Homework_text}}   发布时间：{{ Homework.Pub_time }} 截止时间：{{ Homework.deadline}}
+    </p>
+{% endfor %}

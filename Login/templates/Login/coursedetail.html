@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程详情</title>
+</head>
+<body>
+    <h1>课程详情页</h1>
+    {% if user.is_authenticated %}
+        <a href = "{% url 'Login:登出' %}">登出</a>
+        <p>当前用户:{{ user.username }}</p>
+        <p>当前用户身份:{{ request.session.role }}</p>
+        <p>课程名称：{{mycourse.courseName}}</p>
+        <p>授课教师：{{mycourse.teacherName}}</p>
+        <p>参与课程学生：</p>
+        {% for s in sc %}
+            <p>{{s.studentName}}</p>
+        {% endfor %}
+        <p>作业列表：</p>
+        {% for Homework in hw %}
+            <p>
+            作业内容：{{ Homework.Homework_text}}   发布时间：{{ Homework.Pub_time }} 截止时间：{{ Homework.deadline}}
+            {% if request.session.role == '学生' %}
+            <a href ="{% url 'Login:upload' Homework.id %}">提交此作业</a>
+            {% endif %}
+            </p>
+        {% endfor %}
+
+        {% if request.session.role == '教师' %}
+            <a href="{% url 'HomeworkPublish:Homework_Publish' mycourse.id  %}">发布作业</a>
+            <a href="{% url 'Login:addassistant' mycourse.id  %}">为此课程添加助教</a>            
+        {% endif %}
+
+
+        
+    {% else %}
+        <a href = "{% url 'Login:登录' %}">登录</a>
+        <a href = "{% url 'Login:注册' %}">注册</a>
+    {% endif %}
+</body>
+</html>
