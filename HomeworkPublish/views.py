@@ -25,7 +25,7 @@ def Homework_Publish(request,id):
             return HttpResponse("作业内容有误，请重新填写。")
     return render(request,'HomeworkPublish/Publish.html',{'hw':homework})
 
-    def Homework_delete(request,id):
+def Homework_delete(request,id):
     homework = Homework.objects.get(id=id)
     context = {'homework':homework}
     homework.delete()
