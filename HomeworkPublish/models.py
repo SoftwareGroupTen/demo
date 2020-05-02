@@ -9,7 +9,8 @@ class Homework(models.Model):
     Homework_text =models.TextField()
     courseNum = models.IntegerField()
     Pub_time = models.DateTimeField(default=timezone.now)
-    deadline = models.DateTimeField()
+    deadline_date = models.TextField()
+    deadline_time = models.TextField(default='23:59')
 
     class Meta:
         ordering = ('-Pub_time',)

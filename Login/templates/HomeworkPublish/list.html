@@ -1,7 +1,17 @@
 作业列表：
-{% for Homework in homework %}
-    <p>课程编号{{ Homework.courseNum }}</p>
-    <p>
-         作业内容：{{ Homework.Homework_text}}   发布时间：{{ Homework.Pub_time }} 截止时间：{{ Homework.deadline}}
-    </p>
-{% endfor %}
+<table>
+    <tr>
+        <td>课程编号</td>
+        <td>作业内容</td>
+        <td>发布时间</td>
+        <td>截止时间</td>
+    </tr>
+    {% for Homework in homework %}
+    <tr>
+        <td>{{ Homework.courseNum }}</td>
+        <td>{{ Homework.Homework_text}}</td>
+        <td>{{ Homework.Pub_time }}</td>
+        <td>{{ Homework.deadline_date}} {{ Homework.deadline_time}}</td>
+    </tr>
+    {% endfor %}
+</table>

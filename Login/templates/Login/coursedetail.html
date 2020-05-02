@@ -21,9 +21,12 @@
         <p>作业列表：</p>
         {% for Homework in hw %}
             <p>
-            作业内容：{{ Homework.Homework_text}}   发布时间：{{ Homework.Pub_time }} 截止时间：{{ Homework.deadline}}
+            作业内容：{{ Homework.Homework_text}}   发布时间：{{ Homework.Pub_time }} 截止时间：{{ Homework.deadline_date}} {{ Homework.deadline_time}}
             {% if request.session.role == '学生' %}
             <a href ="{% url 'Login:upload' Homework.id %}">提交此作业</a>
+            {% endif %}
+            {% if request.session.role == '教师' %}
+            <a href ="{% url 'HomeworkPublish:Homework_delete' Homework.id %}">删除此作业</a>
             {% endif %}
             </p>
         {% endfor %}

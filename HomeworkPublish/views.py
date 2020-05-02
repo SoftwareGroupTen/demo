@@ -17,9 +17,16 @@ def Homework_Publish(request,id):
         if Homework_Publish_form.is_valid():
             homework.courseNum = id
             homework.Homework_text = request.POST['Homework_text']
-            homework.deadline = request.POST['deadline']
+            homework.deadline_date = request.POST['deadline_date']
+            homework.deadline_time = request.POST['deadline_time']
             homework.save()
             return HttpResponse("已发布，请返回刷新页面")
         else:
             return HttpResponse("作业内容有误，请重新填写。")
     return render(request,'HomeworkPublish/Publish.html',{'hw':homework})
+
+    def Homework_delete(request,id):
+    homework = Homework.objects.get(id=id)
+    context = {'homework':homework}
+    homework.delete()
+    return redirect("HomeworkPublish:Homework_list")
