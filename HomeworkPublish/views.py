@@ -29,4 +29,4 @@ def Homework_delete(request,id):
     homework = Homework.objects.get(id=id)
     context = {'homework':homework}
     homework.delete()
-    return redirect("HomeworkPublish:Homework_list")
+    return HttpResponse("已删除，请返回刷新页面")
