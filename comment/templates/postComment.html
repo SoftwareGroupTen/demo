@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action='../showComment/' method="POST">
+        {% csrf_token %}
+        评分：<input type='text' id='point' name='point' placeholder='请输入分数'> <br>
+        评论：<input type='text' id='body' name='body' placeholder='请输入评论'> <br>
+        <input type='hidden' name='fileId' value={{fileId}}>
+        <input type='submit' value='提交'>
+    </form>
+    {{error}}
+    <a href='../'> 返回作业列表 </a>
+</body>
+</html>

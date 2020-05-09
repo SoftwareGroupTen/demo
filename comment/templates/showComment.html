@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>评分</td>
+            <td>评论</td>
+            <td>发布时间</td>
+            <td>操作</td>
+        </tr>
+        {% for co in comment %}
+        <tr>
+            <td>{{co.point}}</td>
+            <td>{{co.body}}</td>
+            <td>{{co.created}}</td>
+            <td><a href='../../comment/deleteComment?commentId={{co.id}}&fileId={{co.userfile_id}}'>删除评论</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href='../'> 返回作业列表 </a>
+</body>
+</html>

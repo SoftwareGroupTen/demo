@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>学生姓名</td>
+            <td>文件名称</td>
+            <td>操作</td>
+        </tr>
+        {% for uf in uploadFile %}
+        <tr>
+            <td>{{uf.username}}</td>
+            <td>{{uf.headImg}}</td>
+            <td><a href='../../comment/showComment?fileId={{uf.id}}'>查看评分和评论</a></td>
+            <td><a href='../../comment/postComment?fileId={{uf.id}}'>打分和添加评论</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
